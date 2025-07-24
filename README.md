@@ -2,12 +2,7 @@
 
 <div align="center">
 
-<div align="center">
-
-<svg width="200" height="80" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
-  <!-- [Include the full animated SVG code here] -->
-</svg>
-
+[![FoundryHub Identity](https://img.shields.io/badge/FoundryHub-Collaborative_Innovation_Platform-4F46E5?style=flat-square&logo=google-chrome&logoColor=white)](https://github.com/omm-prog/FoundryHub)
 
 **Transform Ideas into Reality Through Collaborative Innovation**
 
