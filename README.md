@@ -342,7 +342,8 @@ If FoundryHub sparks your interest, give us a ⭐ to show your support!
 
 ---
 
-**Built with 💖 by Vaidehi & Om, a.k.a. the FoundryHub Team**
+
+**Built with 💖 by the FoundryHub Team**
 
 *Transforming ideas into reality, one collaboration at a time* ✨
 
