@@ -1,9 +1,8 @@
 # 🚀 FoundryHub
 
-<div align="center">
+<div align="center" style="font-family: monospace; font-size: 2.5rem; font-weight: bold; color: #4F46E5; letter-spacing: -1px;">
 
-[![FoundryHub](https://img.shields.io/badge/FoundryHub-Platform-4F46E5?style=for-the-badge&logo=starship&logoColor=white)](https://github.com/omm-prog/FoundryHub)
-
+FOUNDRYHUB
 **Transform Ideas into Reality Through Collaborative Innovation**
 
 [![GitHub stars](https://img.shields.io/github/stars/omm-prog/FoundryHub?style=social)](https://github.com/omm-prog/FoundryHub/stargazers)
