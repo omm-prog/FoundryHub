@@ -2,7 +2,12 @@
 
 <div align="center">
 
-![FoundryHub Logo](https://via.placeholder.com/200x80/4F46E5/FFFFFF?text=FoundryHub)
+<div align="center">
+
+<svg width="200" height="80" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- [Include the full animated SVG code here] -->
+</svg>
+
 
 **Transform Ideas into Reality Through Collaborative Innovation**
 
