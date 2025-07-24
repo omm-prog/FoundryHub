@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![FoundryHub Identity](https://img.shields.io/badge/FoundryHub-Collaborative_Innovation_Platform-4F46E5?style=flat-square&logo=google-chrome&logoColor=white)](https://github.com/omm-prog/FoundryHub)
+[![FoundryHub](https://img.shields.io/badge/FoundryHub-Platform-4F46E5?style=for-the-badge&logo=starship&logoColor=white)](https://github.com/omm-prog/FoundryHub)
 
 **Transform Ideas into Reality Through Collaborative Innovation**
 
