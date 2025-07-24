@@ -313,7 +313,7 @@ git push origin feature/amazing-innovation
 
 ### 🆘 **Need Help?**
 
-- 📧 **Email**: support@foundryhub.com
+- 📧 **Email**: omchauhan2026@gmail.com
 - 🐛 **Issues**: [GitHub Issues](https://github.com/omm-prog/FoundryHub/issues)
 - 📖 **Docs**: [Full Documentation](https://docs.foundryhub.com)
 - 💡 **Ideas**: [Feature Requests](https://github.com/omm-prog/FoundryHub/discussions)
@@ -342,7 +342,7 @@ If FoundryHub sparks your interest, give us a ⭐ to show your support!
 
 ---
 
-**Built with 💖 by the FoundryHub Team**
+**Built with 💖 by Vaidehi & Om, a.k.a. the FoundryHub Team**
 
 *Transforming ideas into reality, one collaboration at a time* ✨
 
