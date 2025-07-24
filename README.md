@@ -2,17 +2,18 @@
 
 <div align="center">
 
-[![FoundryHub Identity](https://img.shields.io/badge/FoundryHub-Collaborative_Innovation_Platform-4F46E5?style=flat-square&logo=google-chrome&logoColor=white)](https://github.com/omm-prog/FoundryHub)
+[![FoundryHub Identity](https://img.shields.io/badge/FoundryHub-Collaborative_Innovation_Platform-4F46E5?style=for-the-badge&logo=rocket&logoColor=white)](https://github.com/omm-prog/FoundryHub)
 
-**Transform Ideas into Reality Through Collaborative Innovation**
+**✨ Transform Ideas into Reality Through Collaborative Innovation ✨**
 
-[![GitHub stars](https://img.shields.io/github/stars/omm-prog/FoundryHub?style=social)](https://github.com/omm-prog/FoundryHub/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/omm-prog/FoundryHub?style=social)](https://github.com/omm-prog/FoundryHub/network/members)
-[![GitHub issues](https://img.shields.io/github/issues/omm-prog/FoundryHub)](https://github.com/omm-prog/FoundryHub/issues)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+---
+
+[![GitHub stars](https://img.shields.io/github/stars/omm-prog/FoundryHub?style=for-the-badge&logo=star&logoColor=white&color=FFD700)](https://github.com/omm-prog/FoundryHub/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/omm-prog/FoundryHub?style=for-the-badge&logo=git-branch&logoColor=white&color=28A745)](https://github.com/omm-prog/FoundryHub/network/members)
+[![GitHub issues](https://img.shields.io/github/issues/omm-prog/FoundryHub?style=for-the-badge&logo=github&logoColor=white&color=DC3545)](https://github.com/omm-prog/FoundryHub/issues)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge&logo=open-source-initiative&logoColor=white)](https://opensource.org/licenses/MIT)
 
 </div>
-
 ---
 
 ## 🌟 What is FoundryHub?
