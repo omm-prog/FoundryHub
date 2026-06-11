@@ -120,10 +120,14 @@ cd FoundryHub/startup
 # 2️⃣ Install dependencies
 npm install
 
-# 3️⃣ Configure Firebase
-# Create project at https://console.firebase.google.com/
-# Enable Firestore + Authentication
-# Copy config to src/firebase/config.js
+# 3️⃣ Configure Environment Variables
+# Create a `.env` file inside the `/startup` directory with the following variables:
+# VITE_FIREBASE_API_KEY=your_api_key
+# VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+# VITE_FIREBASE_PROJECT_ID=your_project_id
+# VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+# VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+# VITE_FIREBASE_APP_ID=your_app_id
 
 # 4️⃣ Launch into orbit 🚀
 npm run dev
@@ -275,7 +279,7 @@ git push origin feature/amazing-innovation
 
 ### 🎯 **Current Status: Alpha Release**
 
-![Progress](https://img.shields.io/badge/Progress-75%25-brightgreen?style=for-the-badge)
+![Progress](https://img.shields.io/badge/Progress-90%25-brightgreen?style=for-the-badge)
 
 </div>
 
@@ -285,11 +289,14 @@ git push origin feature/amazing-innovation
 - [x] 💬 Real-time chat functionality
 - [x] 🤖 AI co-pilot integration
 - [x] 📱 Responsive design
+- [x] 💰 Enhanced investment tracking
+- [x] 🛒 Marketplace optimization
+- [x] 📊 Advanced analytics
+- [x] ⚡ Parallelized Firestore queries (Promise.all concurrent fetches)
+- [x] 🎨 Premium glassmorphic dark theme (glowing radial accents & transitions)
+- [x] 🚀 Client prop caching (zero redundant user fetches on dashboard mounts)
 
 #### 🚧 **In Development**
-- [ ] 💰 Enhanced investment tracking
-- [ ] 🛒 Marketplace optimization
-- [ ] 📊 Advanced analytics
 - [ ] 🌐 Multi-language support
 
 #### 🔮 **Future Vision**

@@ -7,6 +7,8 @@ import FreelancerDashboard from './dashboards/FreelancerDashboard';
 import InvestorDashboard from './dashboards/InvestorDashboard';
 import BuyerDashboard from './dashboards/BuyerDashboard';
 
+import LoadingSkeleton from '../components/LoadingSkeleton';
+
 const Dashboard = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -46,23 +48,31 @@ const Dashboard = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="min-h-screen bg-[#030712] py-12">
+        <LoadingSkeleton type="dashboard" />
+      </div>
+    );
   }
 
   if (!userData) {
-    return <div>No user data found</div>;
+    return (
+      <div className="min-h-screen bg-[#030712] flex items-center justify-center text-slate-400">
+        No user data found
+      </div>
+    );
   }
 
   // Render the appropriate dashboard based on user role
   switch (userData.role) {
     case 'founder':
-      return <FounderDashboard />;
+      return <FounderDashboard initialUserData={userData} />;
     case 'freelancer':
-      return <FreelancerDashboard />;
+      return <FreelancerDashboard initialUserData={userData} />;
     case 'investor':
-      return <InvestorDashboard />;
+      return <InvestorDashboard initialUserData={userData} />;
     case 'buyer':
-      return <BuyerDashboard />;
+      return <BuyerDashboard initialUserData={userData} />;
     default:
       return <div>Invalid user role</div>;
   }

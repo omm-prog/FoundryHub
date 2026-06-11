@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Environment secrets
+.env
+.env.local
+.env.*.local
+
+# Flowbite dynamic configurations
+.flowbite-react/

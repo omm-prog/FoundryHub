@@ -81,24 +81,36 @@ const ProjectDetails = () => {
             }
             
             unsubscribeOffers = onSnapshot(offersQuery, async (snapshot) => {
-              const offersList = [];
-              for (const docSnapshot of snapshot.docs) {
-                const offer = { id: docSnapshot.id, ...docSnapshot.data() };
-                if (offer.investorId) {
-                  const investorDoc = await getDoc(doc(db, 'users', offer.investorId));
-                  if (investorDoc.exists()) {
-                    offer.investorName = investorDoc.data().name || investorDoc.data().email;
+              try {
+                const offerPromises = snapshot.docs.map(async (docSnapshot) => {
+                  const offer = { id: docSnapshot.id, ...docSnapshot.data() };
+                  const promises = [];
+                  if (offer.investorId) {
+                    promises.push(
+                      getDoc(doc(db, 'users', offer.investorId)).then(investorDoc => {
+                        if (investorDoc.exists()) {
+                          offer.investorName = investorDoc.data().name || investorDoc.data().email;
+                        }
+                      })
+                    );
                   }
-                }
-                if (offer.founderId) {
-                  const founderDoc = await getDoc(doc(db, 'users', offer.founderId));
-                  if (founderDoc.exists()) {
-                    offer.founderName = founderDoc.data().name || founderDoc.data().email;
+                  if (offer.founderId) {
+                    promises.push(
+                      getDoc(doc(db, 'users', offer.founderId)).then(founderDoc => {
+                        if (founderDoc.exists()) {
+                          offer.founderName = founderDoc.data().name || founderDoc.data().email;
+                        }
+                      })
+                    );
                   }
-                }
-                offersList.push(offer);
+                  await Promise.all(promises);
+                  return offer;
+                });
+                const offersList = await Promise.all(offerPromises);
+                setProjectOffers(offersList);
+              } catch (err) {
+                console.error("Error parsing offers snapshot:", err);
               }
-              setProjectOffers(offersList);
             }, (err) => {
               console.error("Error fetching project offers:", err);
             });

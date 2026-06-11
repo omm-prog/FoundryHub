@@ -78,20 +78,32 @@ const CreateProject = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
-        <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Create New Project</h2>
+    <div className="min-h-screen bg-[#030712] text-slate-100 font-sans relative overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
+      {/* Background glow effects */}
+      <div className="absolute top-[-10%] left-[-15%] w-[50%] h-[50%] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-[-10%] right-[-15%] w-[50%] h-[50%] bg-purple-500/10 rounded-full blur-[120px] pointer-events-none"></div>
+
+      <div className="max-w-3xl mx-auto relative z-10">
+        <div className="bg-slate-900/40 backdrop-blur-md border border-slate-800/80 p-8 rounded-3xl shadow-2xl space-y-6">
+          <div className="flex justify-between items-center pb-4 border-b border-slate-800">
+            <h2 className="text-2xl font-bold text-white font-display">Create New Workspace Pod</h2>
+            <button
+              onClick={() => navigate('/dashboard')}
+              className="text-xs text-slate-400 hover:text-slate-200 transition-colors"
+            >
+              Back
+            </button>
+          </div>
           
           {error && (
-            <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-md">
-              <p className="text-sm text-red-600">{error}</p>
+            <div className="bg-red-500/10 border border-red-500/25 rounded-2xl p-4 text-red-400 text-sm font-semibold">
+              <p>{error}</p>
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="title" className="block text-xs font-semibold uppercase tracking-wider text-slate-450 mb-2">
                 Project Title
               </label>
               <input
@@ -101,13 +113,13 @@ const CreateProject = () => {
                 required
                 value={formData.title}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                placeholder="Enter project title"
+                className="w-full bg-slate-950/60 border border-slate-800 focus:border-indigo-500 text-white placeholder-slate-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 px-4 py-3 text-sm transition-all"
+                placeholder="Enter workspace name"
               />
             </div>
 
             <div>
-              <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="description" className="block text-xs font-semibold uppercase tracking-wider text-slate-450 mb-2">
                 Project Description
               </label>
               <textarea
@@ -117,13 +129,13 @@ const CreateProject = () => {
                 rows={4}
                 value={formData.description}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                placeholder="Describe your project"
+                className="w-full bg-slate-950/60 border border-slate-800 focus:border-indigo-500 text-white placeholder-slate-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 px-4 py-3 text-sm transition-all"
+                placeholder="Describe project details, objectives, and parameters..."
               />
             </div>
 
             <div>
-              <label htmlFor="category" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="category" className="block text-xs font-semibold uppercase tracking-wider text-slate-450 mb-2">
                 Project Category
               </label>
               <select
@@ -132,7 +144,7 @@ const CreateProject = () => {
                 required
                 value={formData.category}
                 onChange={handleChange}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="w-full bg-slate-950/60 border border-slate-800 focus:border-indigo-500 text-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 px-4 py-3 text-sm transition-all"
               >
                 <option value="">Select a category</option>
                 <option value="Technology">Technology</option>
@@ -144,24 +156,24 @@ const CreateProject = () => {
               </select>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Required Job Roles
+            <div className="space-y-3 pt-2">
+              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-450">
+                Required Workspace Job Roles
               </label>
               {formData.roles.map((role, index) => (
-                <div key={index} className="flex gap-2 mb-2">
+                <div key={index} className="flex gap-2.5">
                   <input
                     type="text"
                     value={role}
                     onChange={(e) => handleRoleChange(index, e.target.value)}
-                    className="flex-1 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    placeholder="Enter job role"
+                    className="flex-1 bg-slate-950/60 border border-slate-800 focus:border-indigo-500 text-white placeholder-slate-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 px-4 py-3.5 text-sm transition-all"
+                    placeholder="e.g. Frontend Engineer (React)"
                   />
                   {formData.roles.length > 1 && (
                     <button
                       type="button"
                       onClick={() => removeRoleField(index)}
-                      className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                      className="px-4 py-2 bg-red-950/20 border border-red-900/35 text-red-400 font-bold rounded-xl text-xs hover:bg-red-950/40 transition-all"
                     >
                       Remove
                     </button>
@@ -171,26 +183,26 @@ const CreateProject = () => {
               <button
                 type="button"
                 onClick={addRoleField}
-                className="mt-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="inline-flex items-center px-4 py-2 border border-slate-700 bg-slate-850 hover:bg-slate-800 text-slate-200 text-xs font-semibold rounded-xl transition-all"
               >
-                Add Another Role
+                + Add Role Requirement
               </button>
             </div>
 
-            <div className="flex justify-end space-x-3">
+            <div className="flex justify-end space-x-3 pt-6 border-t border-slate-800">
               <button
                 type="button"
                 onClick={() => navigate(-1)}
-                className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="px-5 py-2.5 bg-slate-800 hover:bg-slate-750 text-slate-300 font-semibold rounded-xl text-sm transition-all"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={loading}
-                className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+                className="px-5 py-2.5 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 disabled:opacity-50 text-white font-bold rounded-xl text-sm shadow-md transition-all duration-200"
               >
-                {loading ? 'Creating...' : 'Create Project'}
+                {loading ? 'Creating Pod...' : 'Create Workspace Pod'}
               </button>
             </div>
           </form>
@@ -200,4 +212,4 @@ const CreateProject = () => {
   );
 };
 
-export default CreateProject; 
+export default CreateProject;

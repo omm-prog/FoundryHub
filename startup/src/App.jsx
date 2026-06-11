@@ -7,6 +7,7 @@ import CreateProject from './pages/CreateProject';
 import ProjectDetails from './pages/ProjectDetails';
 import Teams from './pages/Teams';
 import TeamCommunity from './pages/TeamCommunity';
+import Investors from './pages/Investors';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -54,6 +55,14 @@ function App() {
           element={
             <ProtectedRoute>
               <TeamCommunity />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/investors"
+          element={
+            <ProtectedRoute>
+              <Investors />
             </ProtectedRoute>
           }
         />
