@@ -34,4 +34,6 @@ dist-ssr
 # Package management files
 package.json
 package-lock.json
+README.md
+
 
