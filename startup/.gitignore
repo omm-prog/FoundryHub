@@ -30,3 +30,8 @@ dist-ssr
 
 # Flowbite dynamic configurations
 .flowbite-react/
+
+# Package management files
+package.json
+package-lock.json
+
