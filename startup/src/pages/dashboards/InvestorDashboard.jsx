@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase/config';
 import { getFirestore, doc, getDoc, collection, query, where, getDocs, addDoc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import LoadingSkeleton from '../../components/LoadingSkeleton';
+import MobileNav from '../../components/MobileNav';
 
 const InvestorDashboard = ({ initialUserData }) => {
   const [userData, setUserData] = useState(initialUserData || null);
@@ -229,7 +230,8 @@ const InvestorDashboard = ({ initialUserData }) => {
   }
 
   return (
-    <div className="min-h-screen bg-[#030712] text-slate-100 font-sans relative overflow-hidden">
+    <div className="min-h-screen bg-[#030712] text-slate-100 font-sans relative overflow-hidden pb-20 md:pb-0">
+      <MobileNav />
       {/* Background radial glows */}
       <div className="absolute top-[-10%] left-[-15%] w-[50%] h-[50%] bg-indigo-500/10 rounded-full blur-[120px] pointer-events-none"></div>
       <div className="absolute bottom-[-10%] right-[-15%] w-[50%] h-[50%] bg-purple-500/10 rounded-full blur-[120px] pointer-events-none"></div>

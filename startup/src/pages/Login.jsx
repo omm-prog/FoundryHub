@@ -4,9 +4,18 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useNavigate, Link } from 'react-router-dom';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
+const Logo = () => (
+  <svg className="h-8 w-8 text-indigo-400 drop-shadow-[0_0_10px_rgba(99,102,241,0.6)]" viewBox="0 0 24 24" fill="none">
+    <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+    <path d="M2 17l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+    <path d="M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+  </svg>
+);
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -19,100 +28,162 @@ const Login = () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
-      // Fetch user data from Firestore
       const userDoc = await getDoc(doc(db, 'users', user.uid));
       if (userDoc.exists()) {
-        const userData = userDoc.data();
-        localStorage.setItem('userRole', userData.role);
+        localStorage.setItem('userRole', userDoc.data().role);
       }
-
-      navigate('/dashboard'); // Redirect to dashboard after successful login
-    } catch (error) {
-      setError(error.message);
+      navigate('/dashboard');
+    } catch (err) {
+      setError(err.message.replace('Firebase: ', '').replace(/\(.*\)/, '').trim());
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#030712] relative overflow-hidden py-12 px-4 sm:px-6 lg:px-8 font-sans">
-      {/* Background glow animations */}
-      <div className="absolute top-[-15%] left-[-15%] w-[50%] h-[50%] rounded-full bg-indigo-500/10 blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-[-15%] right-[-15%] w-[50%] h-[50%] rounded-full bg-purple-500/10 blur-[120px] pointer-events-none"></div>
+    <div className="min-h-screen flex bg-[#030712] font-sans">
+      {/* ── Left Panel (Desktop only) ── */}
+      <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-12 relative overflow-hidden">
+        {/* Glow */}
+        <div className="absolute top-[-20%] left-[-10%] w-[70%] h-[60%] rounded-full bg-indigo-500/10 blur-[120px] pointer-events-none" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[50%] rounded-full bg-purple-500/10 blur-[120px] pointer-events-none" />
 
-      <div className="max-w-md w-full bg-slate-900/40 backdrop-blur-md border border-slate-800/80 p-8 sm:p-10 rounded-3xl shadow-2xl relative z-10 space-y-8">
-        <div className="space-y-3 text-center">
-          <div className="inline-flex justify-center items-center cursor-pointer mb-2" onClick={() => navigate('/')}>
-            <svg className="h-9 w-9 text-indigo-500 drop-shadow-[0_0_8px_rgba(99,102,241,0.5)]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M8 14C8 14 9.5 16 12 16C14.5 16 16 14 16 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M15 9H15.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M9 9H9.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            <span className="ml-2.5 text-2xl font-bold tracking-tight text-white font-display">FoundryHub</span>
-          </div>
-          <h2 className="text-3xl font-extrabold text-white tracking-tight font-display">
-            Welcome back
-          </h2>
-          <p className="text-sm text-slate-450">
-            Sign in to access your dashboard and project pods
-          </p>
+        {/* Logo */}
+        <div className="flex items-center gap-2.5 relative z-10 cursor-pointer" onClick={() => navigate('/')}>
+          <Logo />
+          <span className="text-xl font-bold text-white">FoundryHub</span>
         </div>
 
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {error && (
-            <div className="bg-red-500/10 border border-red-500/20 text-red-400 px-4 py-3 rounded-xl text-sm relative" role="alert">
-              <span className="block sm:inline">{error}</span>
-            </div>
-          )}
-          
+        {/* Main copy */}
+        <div className="relative z-10 space-y-8">
+          <div>
+            <h2 className="text-4xl font-extrabold text-white mb-4 leading-tight">
+              Welcome back to the<br />
+              <span className="gradient-text">Innovation Hub</span>
+            </h2>
+            <p className="text-slate-400 text-lg leading-relaxed">
+              Your startup community is waiting. Sign in to access your projects, collaborate with your team, and track your progress.
+            </p>
+          </div>
+
+          {/* Feature bullets */}
           <div className="space-y-4">
-            <div>
-              <label htmlFor="email-address" className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Email address</label>
+            {[
+              { icon: '🤖', text: 'AI Co-Pilot powered by Gemini' },
+              { icon: '🏢', text: 'Real-time collaboration pods' },
+              { icon: '💰', text: 'Transparent equity tracking' },
+            ].map(({ icon, text }) => (
+              <div key={text} className="flex items-center gap-3">
+                <span className="text-xl">{icon}</span>
+                <span className="text-slate-300 text-sm">{text}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Testimonial */}
+          <div className="glass-card p-5">
+            <p className="text-slate-300 text-sm leading-relaxed mb-3">"FoundryHub helped us close our seed round in 6 weeks. The AI pitch advisor is incredible."</p>
+            <div className="flex items-center gap-2.5">
+              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white text-xs font-bold">SC</div>
+              <div>
+                <p className="text-xs font-semibold text-white">Sarah Chen</p>
+                <p className="text-[10px] text-slate-500">Founder, TechForward</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p className="text-xs text-slate-700 relative z-10">© 2025 FoundryHub</p>
+      </div>
+
+      {/* ── Right Panel (Form) ── */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center px-4 sm:px-8 py-12 relative">
+        {/* Mobile background glows */}
+        <div className="lg:hidden absolute top-[-15%] left-[-15%] w-[50%] h-[50%] rounded-full bg-indigo-500/10 blur-[120px] pointer-events-none" />
+        <div className="lg:hidden absolute bottom-[-15%] right-[-15%] w-[50%] h-[50%] rounded-full bg-purple-500/10 blur-[120px] pointer-events-none" />
+
+        {/* Mobile logo */}
+        <div className="lg:hidden absolute top-6 left-6 flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
+          <Logo />
+          <span className="font-bold text-white text-lg">FoundryHub</span>
+        </div>
+
+        <div className="w-full max-w-md relative z-10 animate-fade-up">
+          <div className="mb-8">
+            <h1 className="text-3xl font-extrabold text-white tracking-tight mb-2">Sign in</h1>
+            <p className="text-slate-400 text-sm">Access your dashboard and project pods</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {error && (
+              <div className="bg-red-500/10 border border-red-500/25 text-red-400 px-4 py-3 rounded-xl text-sm animate-fade-in">
+                {error}
+              </div>
+            )}
+
+            {/* Email */}
+            <div className="space-y-1.5">
+              <label htmlFor="email" className="text-xs font-semibold uppercase tracking-wider text-slate-400">Email address</label>
               <input
-                id="email-address"
-                name="email"
+                id="email"
                 type="email"
                 autoComplete="email"
                 required
-                className="w-full bg-slate-950/60 border border-slate-800 focus:border-indigo-500 text-white placeholder-slate-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 px-4 py-3.5 text-sm transition-all duration-200"
-                placeholder="name@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                className="w-full bg-slate-900/60 border border-slate-800 focus:border-indigo-500/70 focus:ring-2 focus:ring-indigo-500/15 text-white placeholder-slate-600 rounded-xl px-4 py-3.5 text-sm outline-none transition-all input-glow"
+                placeholder="name@example.com"
               />
             </div>
-            <div>
-              <label htmlFor="password" className="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Password</label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                required
-                className="w-full bg-slate-950/60 border border-slate-800 focus:border-indigo-500 text-white placeholder-slate-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 px-4 py-3.5 text-sm transition-all duration-200"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-          </div>
 
-          <div>
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full flex justify-center py-3.5 px-4 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 disabled:opacity-50 text-white text-sm font-bold rounded-xl shadow-lg shadow-indigo-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
-            >
-              {loading ? 'Signing in...' : 'Sign in'}
+            {/* Password */}
+            <div className="space-y-1.5">
+              <label htmlFor="password" className="text-xs font-semibold uppercase tracking-wider text-slate-400">Password</label>
+              <div className="relative">
+                <input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  autoComplete="current-password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full bg-slate-900/60 border border-slate-800 focus:border-indigo-500/70 focus:ring-2 focus:ring-indigo-500/15 text-white placeholder-slate-600 rounded-xl px-4 py-3.5 pr-12 text-sm outline-none transition-all input-glow"
+                  placeholder="••••••••"
+                />
+                <button type="button" onClick={() => setShowPassword((p) => !p)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors p-1">
+                  {showPassword ? (
+                    <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                    </svg>
+                  ) : (
+                    <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" disabled={loading}
+              className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 disabled:opacity-60 text-white py-3.5 rounded-xl text-sm font-semibold shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 flex items-center justify-center gap-2">
+              {loading ? (
+                <>
+                  <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  </svg>
+                  Signing in…
+                </>
+              ) : 'Sign In'}
             </button>
-          </div>
-        </form>
-        <div className="text-center pt-2">
-          <p className="text-sm text-slate-400">
+          </form>
+
+          <p className="mt-6 text-center text-sm text-slate-500">
             Don't have an account?{' '}
-            <Link to="/signup" className="font-semibold text-indigo-400 hover:text-indigo-300 transition-colors">
-              Sign up
+            <Link to="/signup" className="text-indigo-400 hover:text-indigo-300 font-medium transition-colors">
+              Create one free
             </Link>
           </p>
         </div>

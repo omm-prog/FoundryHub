@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { getFirestore, collection, query, where, getDocs, addDoc, serverTimestamp, doc, getDoc } from 'firebase/firestore';
 import { auth } from '../firebase/config';
 
-const CommunityForum = ({ projectId }) => {
+const CommunityForum = ({ projectId, isFounder = false }) => {
   const [members, setMembers] = useState([]);
   const [newMemberEmail, setNewMemberEmail] = useState('');
   const [loading, setLoading] = useState(false);
@@ -85,7 +85,7 @@ const CommunityForum = ({ projectId }) => {
         userId,
         role: userData.role,
         joinedAt: serverTimestamp(),
-        addedBy: auth.currentUser.uid
+        addedBy: auth.currentUser?.uid || 'unknown'
       });
 
       // Refresh members list
@@ -107,31 +107,42 @@ const CommunityForum = ({ projectId }) => {
   };
 
   return (
-    <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-6 backdrop-blur-md space-y-6">
-      <div>
-        <h2 className="text-lg font-bold text-slate-200">Community Forum</h2>
-        <p className="text-xs text-slate-500 mt-0.5">Manage and view active platform accounts added to this pod.</p>
+    <div className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 backdrop-blur-md space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-indigo-500"></span>
+            Pod Community & Team
+          </h2>
+          <p className="text-xs text-slate-400 mt-0.5">
+            {isFounder
+              ? 'Manage and invite platform contributors to this pod.'
+              : 'Active contributors and backers in this pod.'}
+          </p>
+        </div>
       </div>
       
-      {/* Add Member Form */}
-      <div>
-        <form onSubmit={handleSearch} className="flex gap-2.5">
-          <input
-            type="email"
-            value={newMemberEmail}
-            onChange={(e) => setNewMemberEmail(e.target.value)}
-            placeholder="Enter email to add member"
-            className="flex-1 bg-slate-950/60 border border-slate-800 focus:border-indigo-500 text-white placeholder-slate-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 px-4 py-3 text-sm transition-all"
-          />
-          <button
-            type="submit"
-            disabled={searching}
-            className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold px-5 py-3.5 rounded-xl text-sm shadow-md transition-all duration-200 disabled:opacity-55"
-          >
-            {searching ? 'Searching...' : 'Search'}
-          </button>
-        </form>
-      </div>
+      {/* Add Member Form - Only visible to Founder */}
+      {isFounder && (
+        <div>
+          <form onSubmit={handleSearch} className="flex gap-2.5">
+            <input
+              type="email"
+              value={newMemberEmail}
+              onChange={(e) => setNewMemberEmail(e.target.value)}
+              placeholder="Enter user email to add member"
+              className="flex-1 bg-slate-950/60 border border-slate-800 focus:border-indigo-500 text-white placeholder-slate-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/20 px-4 py-2.5 text-sm transition-all"
+            />
+            <button
+              type="submit"
+              disabled={searching}
+              className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold px-4 py-2.5 rounded-xl text-xs shadow-md transition-all duration-200 disabled:opacity-55"
+            >
+              {searching ? 'Searching...' : 'Search'}
+            </button>
+          </form>
+        </div>
+      )}
 
       {/* Search Results */}
       {searchResults.length > 0 && (

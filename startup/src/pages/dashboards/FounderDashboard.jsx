@@ -4,12 +4,15 @@ import { auth, db } from '../../firebase/config';
 import { getFirestore, doc, getDoc, collection, query, where, getDocs, onSnapshot, updateDoc, serverTimestamp } from 'firebase/firestore';
 import React from 'react';
 import LoadingSkeleton from '../../components/LoadingSkeleton';
+import MobileNav from '../../components/MobileNav';
+import InvestorChat from '../../components/InvestorChat';
 
 const FounderDashboard = ({ initialUserData }) => {
   const [userData, setUserData] = useState(initialUserData || null);
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [chatModal, setChatModal] = useState({ open: false, projectId: null, recipientId: null, recipientName: '' });
   const [investmentProjects, setInvestmentProjects] = useState([]);
   const [showInvestmentProjects, setShowInvestmentProjects] = useState(false);
   const [projectOffersSummary, setProjectOffersSummary] = useState({}); // Stores summary: { projectId: { interestedCount: N, offersMadeCount: M } }
@@ -272,7 +275,7 @@ const FounderDashboard = ({ initialUserData }) => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-950 p-8 flex justify-center items-center">
+      <div className="min-h-screen bg-[#030712] p-4 md:p-8 flex justify-center items-center">
         <div className="w-full max-w-7xl">
           <LoadingSkeleton type="dashboard" />
         </div>
@@ -294,7 +297,9 @@ const FounderDashboard = ({ initialUserData }) => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans">
+    <div className="min-h-screen bg-[#030712] text-slate-100 font-sans pb-20 md:pb-0">
+      {/* Mobile bottom nav */}
+      <MobileNav />
       {/* Sidebar */}
       <div className="fixed inset-y-0 left-0 w-64 bg-slate-900/80 backdrop-blur-md border-r border-slate-800 shadow-2xl flex flex-col justify-between">
         <div>
@@ -348,6 +353,16 @@ const FounderDashboard = ({ initialUserData }) => {
               </svg>
               <span className="font-medium text-sm">Find Investors</span>
             </Link>
+
+            <a
+              href="#investor-chats"
+              className="flex items-center px-4 py-3 text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent hover:border-slate-800 rounded-xl transition-all duration-200"
+            >
+              <svg className="w-5 h-5 mr-3 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+              <span className="font-medium text-sm">Investor Chats</span>
+            </a>
 
              {investmentProjects.length > 0 && (
               <button
@@ -502,12 +517,25 @@ const FounderDashboard = ({ initialUserData }) => {
                               <p className="text-xs text-slate-300">
                                 <strong>{offer.investorName}</strong> offered ${offer.investmentAmount} for {offer.equityPercentage}% equity.
                               </p>
-                              {offer.status === 'interestExpressed' && (
-                                <div className="flex gap-2">
-                                  <button onClick={() => handleAcceptOffer(offer)} className="px-2.5 py-1 bg-emerald-600 text-white rounded-lg text-[10px] font-semibold hover:bg-emerald-700">Accept</button>
-                                  <button onClick={() => handleCounterOffer(offer)} className="px-2.5 py-1 bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 rounded-lg text-[10px] font-semibold hover:bg-yellow-500/30">Counter</button>
-                                </div>
-                              )}
+                              <div className="flex gap-2 items-center flex-wrap">
+                                {offer.status === 'interestExpressed' && (
+                                  <>
+                                    <button onClick={() => handleAcceptOffer(offer)} className="px-2.5 py-1 bg-emerald-600 text-white rounded-lg text-[10px] font-semibold hover:bg-emerald-700">Accept</button>
+                                    <button onClick={() => handleCounterOffer(offer)} className="px-2.5 py-1 bg-yellow-500/20 text-yellow-400 border border-yellow-500/30 rounded-lg text-[10px] font-semibold hover:bg-yellow-500/30">Counter</button>
+                                  </>
+                                )}
+                                <button
+                                  onClick={() => setChatModal({
+                                    open: true,
+                                    projectId: project.id,
+                                    recipientId: offer.investorId,
+                                    recipientName: offer.investorName
+                                  })}
+                                  className="px-2.5 py-1 bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 rounded-lg text-[10px] font-semibold hover:bg-indigo-500/30 flex items-center gap-1"
+                                >
+                                  💬 Chat
+                                </button>
+                              </div>
                             </div>
                           ))}
                         </div>
@@ -523,9 +551,22 @@ const FounderDashboard = ({ initialUserData }) => {
                                 <p className="text-xs font-semibold text-slate-200">{contribution.investorName}</p>
                                 <p className="text-[10px] text-slate-500">Invested: ${contribution.investmentAmount}</p>
                               </div>
-                              <span className="text-xs bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/20 font-medium">
-                                {contribution.equityPercentage}%
-                              </span>
+                              <div className="flex items-center gap-2">
+                                <span className="text-xs bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-full border border-emerald-500/20 font-medium">
+                                  {contribution.equityPercentage}%
+                                </span>
+                                <button
+                                  onClick={() => setChatModal({
+                                    open: true,
+                                    projectId: project.id,
+                                    recipientId: contribution.investorId,
+                                    recipientName: contribution.investorName
+                                  })}
+                                  className="px-2 py-0.5 text-[10px] text-indigo-400 hover:text-indigo-300 font-semibold bg-indigo-500/10 border border-indigo-500/20 rounded-md"
+                                >
+                                  💬
+                                </button>
+                              </div>
                             </div>
                           ))}
                         </div>
@@ -592,6 +633,87 @@ const FounderDashboard = ({ initialUserData }) => {
                 </Link>
               </div>
             )}
+          </div>
+
+          {/* Investor Communications & Direct Chats */}
+          <div id="investor-chats" className="space-y-6 pt-4 border-t border-slate-800">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-bold text-slate-100 flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
+                  Investor Messages & Communications
+                </h2>
+                <p className="text-sm text-slate-400 mt-1">
+                  Direct communication channels with investors who expressed interest or submitted offers.
+                </p>
+              </div>
+            </div>
+
+            {(() => {
+              const allOffers = Object.entries(projectOffers).flatMap(([projId, offers]) =>
+                (offers || []).map(o => ({
+                  ...o,
+                  projectId: projId,
+                  projectTitle: projects.find(p => p.id === projId)?.title || 'Project Pod'
+                }))
+              );
+
+              if (allOffers.length === 0) {
+                return (
+                  <div className="py-10 px-6 text-center text-slate-400 bg-slate-900/40 rounded-2xl border border-slate-800 border-dashed">
+                    <div className="w-12 h-12 mx-auto rounded-full bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 mb-3">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                      </svg>
+                    </div>
+                    <h3 className="text-sm font-semibold text-slate-200">No active investor discussions yet</h3>
+                    <p className="text-xs text-slate-500 mt-1 max-w-md mx-auto">
+                      When investors express interest in your startup pods, direct chat channels will appear here so you can negotiate term sheets and discuss milestones.
+                    </p>
+                  </div>
+                );
+              }
+
+              return (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {allOffers.map((offer) => (
+                    <div
+                      key={offer.id}
+                      className="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-5 hover:border-slate-700/80 transition-all duration-200 flex flex-col justify-between space-y-4"
+                    >
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-[10px] font-bold text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 px-2 py-0.5 rounded-md">
+                            {offer.projectTitle}
+                          </span>
+                          <span className="text-[10px] text-slate-400 capitalize px-2 py-0.5 rounded bg-slate-800">
+                            {offer.status}
+                          </span>
+                        </div>
+                        <h4 className="text-sm font-bold text-slate-100">{offer.investorName || 'Investor'}</h4>
+                        <p className="text-xs text-slate-400">
+                          {offer.investmentAmount ? `$${offer.investmentAmount} for ${offer.equityPercentage}% equity` : 'Expressed interest in pod'}
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => setChatModal({
+                          open: true,
+                          projectId: offer.projectId,
+                          recipientId: offer.investorId,
+                          recipientName: offer.investorName
+                        })}
+                        className="w-full py-2 px-3 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-md transition-all"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                        Chat with {offer.investorName?.split(' ')[0] || 'Investor'}
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              );
+            })()}
           </div>
         </main>
       </div>
@@ -788,6 +910,34 @@ const FounderDashboard = ({ initialUserData }) => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Investor Chat Modal */}
+      {chatModal.open && chatModal.projectId && chatModal.recipientId && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 animate-fadeIn">
+          <div className="bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-6 w-full max-w-2xl relative text-slate-100 font-sans max-h-[90vh] flex flex-col">
+            <div className="flex justify-between items-center pb-4 border-b border-slate-800 mb-4">
+              <div>
+                <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  Chat with {chatModal.recipientName || 'Investor'}
+                </h3>
+                <p className="text-xs text-slate-400">Founder & Investor confidential workspace communication</p>
+              </div>
+              <button
+                onClick={() => setChatModal({ open: false, projectId: null, recipientId: null, recipientName: '' })}
+                className="text-slate-400 hover:text-white p-1.5 rounded-xl hover:bg-slate-800 transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div className="flex-1 overflow-hidden">
+              <InvestorChat projectId={chatModal.projectId} recipientId={chatModal.recipientId} />
+            </div>
           </div>
         </div>
       )}

@@ -6,8 +6,8 @@ import FounderDashboard from './dashboards/FounderDashboard';
 import FreelancerDashboard from './dashboards/FreelancerDashboard';
 import InvestorDashboard from './dashboards/InvestorDashboard';
 import BuyerDashboard from './dashboards/BuyerDashboard';
-
 import LoadingSkeleton from '../components/LoadingSkeleton';
+import AICopilot from '../components/AICopilot';
 
 const Dashboard = () => {
   const [userData, setUserData] = useState(null);
@@ -64,18 +64,27 @@ const Dashboard = () => {
   }
 
   // Render the appropriate dashboard based on user role
-  switch (userData.role) {
-    case 'founder':
-      return <FounderDashboard initialUserData={userData} />;
-    case 'freelancer':
-      return <FreelancerDashboard initialUserData={userData} />;
-    case 'investor':
-      return <InvestorDashboard initialUserData={userData} />;
-    case 'buyer':
-      return <BuyerDashboard initialUserData={userData} />;
-    default:
-      return <div>Invalid user role</div>;
-  }
+  const renderDashboard = () => {
+    switch (userData.role) {
+      case 'founder':
+        return <FounderDashboard initialUserData={userData} />;
+      case 'freelancer':
+        return <FreelancerDashboard initialUserData={userData} />;
+      case 'investor':
+        return <InvestorDashboard initialUserData={userData} />;
+      case 'buyer':
+        return <BuyerDashboard initialUserData={userData} />;
+      default:
+        return <div className="text-slate-400 flex items-center justify-center min-h-screen">Invalid user role</div>;
+    }
+  };
+
+  return (
+    <>
+      {renderDashboard()}
+      <AICopilot />
+    </>
+  );
 };
 
 export default Dashboard; 
