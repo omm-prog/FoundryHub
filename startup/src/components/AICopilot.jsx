@@ -14,6 +14,123 @@ function TypingDots() {
   );
 }
 
+/** Lightweight inline markdown → JSX renderer (no external lib needed) */
+function renderMarkdown(text) {
+  const lines = text.split('\n');
+  const elements = [];
+  let i = 0;
+
+  while (i < lines.length) {
+    const raw = lines[i];
+
+    // Skip blank lines (render as spacer)
+    if (raw.trim() === '') {
+      elements.push(<div key={i} className="h-1" />);
+      i++;
+      continue;
+    }
+
+    // H1
+    if (/^# /.test(raw)) {
+      elements.push(
+        <p key={i} className="font-bold text-white text-sm mt-2 mb-0.5">
+          {inlineFormat(raw.replace(/^# /, ''))}
+        </p>
+      );
+      i++; continue;
+    }
+
+    // H2 / H3
+    if (/^#{2,3} /.test(raw)) {
+      elements.push(
+        <p key={i} className="font-semibold text-indigo-300 text-xs mt-2 mb-0.5 uppercase tracking-wide">
+          {inlineFormat(raw.replace(/^#{2,3} /, ''))}
+        </p>
+      );
+      i++; continue;
+    }
+
+    // Numbered list
+    if (/^\d+\. /.test(raw)) {
+      elements.push(
+        <div key={i} className="flex gap-2 my-0.5">
+          <span className="text-indigo-400 font-bold flex-shrink-0 text-xs mt-0.5">
+            {raw.match(/^(\d+)\./)[1]}.
+          </span>
+          <span className="text-slate-100 text-xs leading-relaxed">
+            {inlineFormat(raw.replace(/^\d+\. /, ''))}
+          </span>
+        </div>
+      );
+      i++; continue;
+    }
+
+    // Bullet list
+    if (/^[-*] /.test(raw)) {
+      elements.push(
+        <div key={i} className="flex gap-2 my-0.5 pl-1">
+          <span className="text-indigo-400 flex-shrink-0 mt-1.5 text-[8px]">●</span>
+          <span className="text-slate-200 text-xs leading-relaxed">
+            {inlineFormat(raw.replace(/^[-*] /, ''))}
+          </span>
+        </div>
+      );
+      i++; continue;
+    }
+
+    // Sub-bullet (indented - or *)
+    if (/^   [-*] /.test(raw) || /^  [-*] /.test(raw)) {
+      elements.push(
+        <div key={i} className="flex gap-2 my-0.5 pl-5">
+          <span className="text-slate-500 flex-shrink-0 mt-1.5 text-[7px]">○</span>
+          <span className="text-slate-400 text-xs leading-relaxed">
+            {inlineFormat(raw.replace(/^ +[-*] /, ''))}
+          </span>
+        </div>
+      );
+      i++; continue;
+    }
+
+    // Horizontal rule
+    if (/^---+$/.test(raw.trim())) {
+      elements.push(<hr key={i} className="border-slate-700/50 my-2" />);
+      i++; continue;
+    }
+
+    // Default paragraph
+    elements.push(
+      <p key={i} className="text-slate-100 text-xs leading-relaxed my-0.5">
+        {inlineFormat(raw)}
+      </p>
+    );
+    i++;
+  }
+
+  return elements;
+}
+
+/** Applies inline formatting: bold, italic, inline code */
+function inlineFormat(text) {
+  // Split on bold (**...**), italic (*...*), code (`...`)
+  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`|\*[^*]+\*)/g);
+  return parts.map((part, idx) => {
+    if (/^\*\*[^*]+\*\*$/.test(part)) {
+      return <strong key={idx} className="text-white font-semibold">{part.slice(2, -2)}</strong>;
+    }
+    if (/^`[^`]+`$/.test(part)) {
+      return (
+        <code key={idx} className="bg-slate-700/70 text-indigo-300 px-1 py-0.5 rounded text-[10px] font-mono">
+          {part.slice(1, -1)}
+        </code>
+      );
+    }
+    if (/^\*[^*]+\*$/.test(part)) {
+      return <em key={idx} className="text-slate-300 italic">{part.slice(1, -1)}</em>;
+    }
+    return part;
+  });
+}
+
 function ChatMessage({ msg }) {
   const isUser = msg.role === 'user';
   const time = msg.timestamp
@@ -29,13 +146,17 @@ function ChatMessage({ msg }) {
       )}
       <div className={`max-w-[82%] ${isUser ? 'items-end' : 'items-start'} flex flex-col gap-0.5`}>
         <div
-          className={`rounded-2xl px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap ${
+          className={`rounded-2xl px-4 py-3 text-sm leading-relaxed ${
             isUser
               ? 'bg-gradient-to-br from-indigo-500 to-purple-600 text-white rounded-br-sm'
               : 'bg-slate-800/80 text-slate-100 rounded-bl-sm border border-slate-700/40'
           }`}
         >
-          {msg.content}
+          {isUser ? (
+            <p className="text-sm leading-relaxed">{msg.content}</p>
+          ) : (
+            <div className="space-y-0.5">{renderMarkdown(msg.content)}</div>
+          )}
         </div>
         {time && <span className="text-[10px] text-slate-600 px-1">{time}</span>}
       </div>
