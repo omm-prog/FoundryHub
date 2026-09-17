@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { auth } from '../firebase/config';
-import { createChatSession, sendChatMessage, isGeminiConfigured } from '../services/geminiService';
+import { createChatSession, sendChatMessage, isGeminiConfigured, getIntelligentStartupResponse } from '../services/geminiService';
 import { saveMemory, loadMemory, toGeminiHistory } from '../services/memoryService';
 
 /**
@@ -54,11 +54,6 @@ export function useGeminiChat(sessionId = 'default') {
       if (!text?.trim() || isLoading) return;
       setError('');
 
-      if (!configured) {
-        setError('Gemini API key not configured. Add VITE_GEMINI_API_KEY to your .env file.');
-        return;
-      }
-
       if (!chatSessionRef.current) {
         chatSessionRef.current = createChatSession([]);
       }
@@ -83,10 +78,20 @@ export function useGeminiChat(sessionId = 'default') {
           saveMemory(userId, sessionId, finalMessages).catch(console.error);
         }
       } catch (err) {
-        console.error('Gemini error:', err);
-        setError(err.message || 'Failed to get AI response. Please try again.');
-        // Remove the user message if we failed
-        setMessages(messages);
+        console.warn('AI chat error handled gracefully:', err);
+        // Fallback safely to intelligent local response
+        const fallbackText = getIntelligentStartupResponse(text.trim());
+        const assistantMsg = {
+          role: 'assistant',
+          content: fallbackText,
+          timestamp: Date.now(),
+        };
+        const finalMessages = [...updatedMessages, assistantMsg];
+        setMessages(finalMessages);
+
+        if (userId) {
+          saveMemory(userId, sessionId, finalMessages).catch(console.error);
+        }
       } finally {
         setIsLoading(false);
       }

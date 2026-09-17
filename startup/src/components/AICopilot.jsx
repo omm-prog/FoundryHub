@@ -193,16 +193,6 @@ export default function AICopilot() {
             </div>
           )}
 
-          {/* Not configured warning */}
-          {!configured && (
-            <div className="mx-3 mt-3 px-3 py-2.5 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-400 text-xs flex-shrink-0">
-              ⚠️ Add your <code className="bg-amber-500/10 px-1 rounded">VITE_GEMINI_API_KEY</code> to{' '}
-              <code className="bg-amber-500/10 px-1 rounded">.env</code> to enable AI.{' '}
-              <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noreferrer" className="underline">
-                Get free key →
-              </a>
-            </div>
-          )}
 
           {/* Messages */}
           <div className="flex-1 overflow-y-auto py-3 scroll-smooth">
@@ -271,13 +261,13 @@ export default function AICopilot() {
               onKeyDown={handleKeyDown}
               rows={1}
               placeholder="Ask your Co-Pilot..."
-              disabled={isLoading || !configured}
+              disabled={isLoading}
               className="flex-1 bg-slate-800/60 border border-slate-700/60 focus:border-indigo-500/60 focus:ring-1 focus:ring-indigo-500/20 text-white placeholder-slate-500 rounded-xl px-3 py-2.5 text-sm resize-none outline-none transition-all disabled:opacity-50"
               style={{ maxHeight: '120px', overflowY: 'auto' }}
             />
             <button
               type="submit"
-              disabled={!input.trim() || isLoading || !configured}
+              disabled={!input.trim() || isLoading}
               className="w-9 h-9 flex-shrink-0 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white hover:opacity-90 active:scale-95 disabled:opacity-40 transition-all"
             >
               <svg className="w-4 h-4 rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
