@@ -144,10 +144,6 @@ export default function FoundryHubLanding() {
             {/* CTA */}
             <div className="hidden md:flex items-center gap-3">
               <button onClick={() => navigate('/login')}
-                className="text-sm font-medium text-slate-300 hover:text-white transition-colors px-4 py-2">
-                Sign in
-              </button>
-              <button onClick={() => navigate('/signup')}
                 className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-5 py-2 rounded-xl text-sm font-semibold shadow-lg shadow-indigo-500/25 hover:scale-[1.03] active:scale-[0.97] transition-all duration-200">
                 Get Started Free
               </button>
@@ -175,14 +171,10 @@ export default function FoundryHubLanding() {
                 {item}
               </a>
             ))}
-            <div className="pt-2 grid grid-cols-2 gap-2">
+            <div className="pt-2">
               <button onClick={() => navigate('/login')}
-                className="border border-slate-700 text-slate-300 hover:text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-all">
-                Sign in
-              </button>
-              <button onClick={() => navigate('/signup')}
-                className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-2.5 rounded-xl text-sm font-semibold">
-                Get Started
+                className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-4 py-2.5 rounded-xl text-sm font-semibold">
+                Get Started Free
               </button>
             </div>
           </div>
@@ -209,22 +201,18 @@ export default function FoundryHubLanding() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up delay-300">
-            <button onClick={() => navigate('/signup')}
-              className="group relative bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-8 py-4 rounded-2xl text-base font-semibold shadow-xl shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300">
+            <button onClick={() => navigate('/login')}
+              className="group relative bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-10 py-4 rounded-2xl text-base font-semibold shadow-xl shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:scale-[1.03] active:scale-[0.97] transition-all duration-300">
               <span className="flex items-center gap-2">
-                Start Building Free
+                Get Started — It's Free
                 <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                 </svg>
               </span>
             </button>
-            <button onClick={() => navigate('/login')}
-              className="border border-slate-700 hover:border-slate-500 text-slate-300 hover:text-white px-8 py-4 rounded-2xl text-base font-semibold hover:bg-slate-800/50 transition-all duration-200">
-              Sign In
-            </button>
           </div>
 
-          <p className="mt-5 text-xs text-slate-600 animate-fade-up delay-400">No credit card required · Free forever plan available</p>
+          <p className="mt-5 text-xs text-slate-600 animate-fade-up delay-400">No credit card required · Try any role as a demo in seconds</p>
         </div>
       </section>
 

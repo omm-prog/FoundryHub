@@ -36,4 +36,9 @@ package.json
 package-lock.json
 README.md
 
+# Firebase Admin — NEVER commit this key
+serviceAccountKey.json
 
+# Demo seed scripts (local dev only)
+seed-demo-users.js
+seed-demo-users.cjs
