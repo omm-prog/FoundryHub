@@ -1,241 +1,150 @@
-# 🚀 FoundryHub
+# FoundryHub
 
-<div align="center">
+**A collaborative platform connecting founders, freelancers, investors, and buyers — from idea validation to MVP marketplace.**
 
-[![FoundryHub Identity](https://img.shields.io/badge/FoundryHub-Collaborative_Innovation_Platform-4F46E5?style=for-the-badge&logo=rocket&logoColor=white)](https://github.com/omm-prog/FoundryHub)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/omm-prog/FoundryHub?style=flat)](https://github.com/omm-prog/FoundryHub/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/omm-prog/FoundryHub?style=flat)](https://github.com/omm-prog/FoundryHub/network/members)
+[![GitHub issues](https://img.shields.io/github/issues/omm-prog/FoundryHub?style=flat)](https://github.com/omm-prog/FoundryHub/issues)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-**✨ Transform Ideas into Reality Through Collaborative Innovation & AI ✨**
-
----
-
-[![GitHub stars](https://img.shields.io/github/stars/omm-prog/FoundryHub?style=for-the-badge&logo=star&logoColor=white&color=FFD700)](https://github.com/omm-prog/FoundryHub/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/omm-prog/FoundryHub?style=for-the-badge&logo=git-branch&logoColor=white&color=28A745)](https://github.com/omm-prog/FoundryHub/network/members)
-[![GitHub issues](https://img.shields.io/github/issues/omm-prog/FoundryHub?style=for-the-badge&logo=github&logoColor=white&color=DC3545)](https://github.com/omm-prog/FoundryHub/issues)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge&logo=open-source-initiative&logoColor=white)](https://opensource.org/licenses/MIT)
-
-</div>
+[Live Demo](#) · [Report Bug](https://github.com/omm-prog/FoundryHub/issues) · [Request Feature](https://github.com/omm-prog/FoundryHub/issues)
 
 ---
 
-## 🌟 What is FoundryHub?
+## Table of Contents
 
-> **The Full-Stack Ecosystem for Startup Ideation, Team Formation, Investment & Marketplace** 🎯
-
-FoundryHub connects **Founders**, **Freelancers**, **Investors**, and **Buyers** into a unified collaborative ecosystem. From initial AI-assisted validation to sweat equity staking, seed funding, and MVP marketplace sales, FoundryHub provides the complete infrastructure to launch ideas into real-world ventures.
-
-<div align="center">
-
-### 🎪 **Connect • Collaborate • Create • Capitalize**
-*Try any role instantly with 1-click Demo Mode — no registration required!*
-
-</div>
-
----
-
-## ✨ Why Choose FoundryHub?
-
-<table>
-<tr>
-<td width="33%" align="center">
-
-### 🤖 **Gemini AI Startup Co-Pilot**
-Transform raw concepts into actionable roadmaps, team specs, and investor pitch decks with conversational memory.
-
-</td>
-<td width="33%" align="center">
-
-### 🤝 **Collaborative Pods**
-Role-governed workspaces with real-time Firestore communication, team applications, and deal rooms.
-
-</td>
-<td width="33%" align="center">
-
-### 💎 **Sweat Equity & Marketplace**
-Earn equity by logging verified hours and buy/sell validated MVPs in an open marketplace.
-
-</td>
-</tr>
-</table>
+- [Overview](#overview)
+- [Features](#features)
+- [User Roles](#user-roles)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Environment Variables](#environment-variables)
+  - [Running Locally](#running-locally)
+- [Seeding Demo Data](#seeding-demo-data)
+- [Available Scripts](#available-scripts)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Security](#security)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
 ---
 
-## 🎭 4 Distinct Persona Dashboards
+## Overview
 
-<div align="center">
+FoundryHub is a full-stack ecosystem for startup ideation, team formation, investment, and MVP sales. It connects four distinct personas — **Founders**, **Freelancers**, **Investors**, and **Buyers** — into a single collaborative workspace, backed by an AI co-pilot for startup advisory, real-time team pods, sweat-equity tracking, and a marketplace for validated MVPs.
 
-<table>
-<tr>
-<td width="25%" align="center">
+A guided demo mode is available so evaluators can explore any of the four roles without registering an account.
 
-### 🚀 **Founder**
-![Founder](https://img.shields.io/badge/-Visionary-FF6B6B?style=for-the-badge)
+## Features
 
-**The Builder**
-- 💡 Launch & manage projects
-- 👥 Review freelancer applications
-- 💼 Negotiate with investors
-- 🛒 List MVPs on the marketplace
+- **AI Startup Co-Pilot** — Powered by Google Gemini 1.5 Flash, provides MVP scoping advice, pitch deck guidance, and equity structuring recommendations. Conversation history persists per user via Firestore.
+- **Project Pods** — Role-governed workspaces with real-time messaging, team applications, and dedicated founder–investor deal rooms.
+- **Sweat Equity Engine** — Freelancers log verified hours; founders review and approve equity allocation.
+- **MVP Marketplace** — Public listings with pricing, tech stack tags, and live demo links for buyers to browse and purchase.
+- **Community Forum** — Cross-role discussion space for feedback and feature ideas.
+- **Demo Mode** — One-click access to four pre-seeded demo accounts sharing a live data environment, useful for reviewers and QA.
 
-</td>
-<td width="25%" align="center">
+## User Roles
 
-### 💼 **Investor**
-![Investor](https://img.shields.io/badge/-Strategist-45B7D1?style=for-the-badge)
+| Role | Description | Key Capabilities |
+|---|---|---|
+| **Founder** | Builds and manages a startup | Launch projects, review applications, negotiate with investors, list MVPs |
+| **Investor** | Backs promising startups | Discover startups, chat with founders, track equity/ROI, review pitch decks |
+| **Freelancer** | Contributes skills to projects | Showcase portfolio, join pods, log hours, track contributions |
+| **Buyer** | Purchases validated products | Browse MVPs, message sellers, purchase, submit reviews |
 
-**The Backer**
-- 🔍 Discover high-potential startups
-- 💬 Direct deal chat with founders
-- 📊 Track equity & investment ROI
-- 📄 Review pitch decks & metrics
+## Tech Stack
 
-</td>
-<td width="25%" align="center">
+| Layer | Technology |
+|---|---|
+| Frontend | React 19, Vite 6, React Router v7 |
+| Styling | Tailwind CSS v4, Flowbite React, Lucide Icons |
+| Backend-as-a-Service | Firebase 11 (Firestore, Authentication, Storage) |
+| AI | Google Gemini API (`@google/generative-ai`, `gemini-1.5-flash`) |
+| Tooling | Firebase Admin SDK (Node.js) for data seeding |
+| Deployment | Netlify, Render |
 
-### 💻 **Freelancer**
-![Freelancer](https://img.shields.io/badge/-Creator-4ECDC4?style=for-the-badge)
-
-**The Maker**
-- 🎨 Showcase skills & portfolio
-- 🤝 Join startup pods & squads
-- ⏱️ Log hours & claim sweat equity
-- 📈 Track project contributions
-
-</td>
-<td width="25%" align="center">
-
-### 🛒 **Buyer**
-![Buyer](https://img.shields.io/badge/-Pioneer-96CEB4?style=for-the-badge)
-
-**The Acquirer**
-- 🚀 Browse verified early-stage MVPs
-- 💬 Chat directly with sellers
-- 💳 Purchase software & products
-- 💡 Submit product reviews
-
-</td>
-</tr>
-</table>
-
-</div>
-
----
-
-## 🎯 Key Features & Capabilities
-
-### 🧠 **Google Gemini 1.5 Flash AI Co-Pilot**
-- **Startup Advisory**: Personalized advice for MVP scoping, pitch deck formulation, and equity distribution.
-- **Conversational Memory**: Chat sessions persist seamlessly in Firestore (`aiMemory` collection) across user sessions.
-- **Floating Global Widget**: Accessible anytime across all dashboards and project views.
-
-### ⚡ **1-Click Interactive Demo Accounts**
-- **Instant Guest Access**: Recruiters and evaluators can jump straight into any of the 4 roles from the Login screen.
-- **Shared Live Data**: All 4 demo accounts (Alex Chen, Sarah Jenkins, Marcus Vance, Elena Rostova) interact within the same live Firebase data room.
-- **Automated Seeding**: Ready-to-use Admin script (`seed-demo-users.cjs`) to populate rich test data instantly.
-
-### 🏢 **Project Pods & Team Workspaces**
-- **Role-Based Access**: Founder-only controls, public discovery, and secure team channels.
-- **Direct Investor Chat**: Encrypted deal flow room between founders and interested investors.
-- **Community Forum**: Cross-disciplinary discussions and feature brainstorming feeds.
-
-### 📈 **Sweat Equity Engine & Marketplace**
-- **Transparent Hourly Logging**: Freelancers log work and founders approve stakes.
-- **MVP Marketplace**: Public listings with pricing, tech stack tags, and demo links.
-
----
-
-## 🛠️ Tech Stack
-
-<div align="center">
-
-| Area | Technologies |
-|:-----|:-------------|
-| **Frontend Framework** | **React 19**, **Vite 6**, **React Router v7** |
-| **Styling & UI** | **Tailwind CSS v4**, **Flowbite React**, **Lucide Icons** |
-| **Backend as a Service** | **Firebase 11** (Firestore, Authentication, Storage) |
-| **Artificial Intelligence**| **Google Gemini API** (`@google/generative-ai` / `gemini-1.5-flash`) |
-| **Admin & Seeding** | **Firebase Admin SDK** (Node.js) |
-| **Deployment** | **Netlify**, **Render** |
-
-</div>
-
----
-
-## 🏗️ Project Architecture
+## Architecture
 
 ```
 FoundryHub/
 ├── startup/
-│   ├── public/                      # Static assets & SPA redirect config
+│   ├── public/
 │   │   └── _redirects               # Netlify SPA routing rules
 │   ├── src/
-│   │   ├── components/              # Modular UI components
+│   │   ├── components/
 │   │   │   ├── AICopilot.jsx        # Floating Gemini AI assistant
 │   │   │   ├── CommunityForum.jsx   # Team & public forum discussions
-│   │   │   ├── InvestorChat.jsx     # Dedicated founder-investor chatroom
-│   │   │   ├── LoadingSkeleton.jsx  # Glassmorphic skeleton screens
-│   │   │   ├── MobileNav.jsx        # Bottom navigation for mobile devices
-│   │   │   ├── ProfileSetup.jsx     # Role selection & profile onboarding
-│   │   │   ├── ProjectCard.jsx      # Animated project showcase cards
+│   │   │   ├── InvestorChat.jsx     # Founder-investor chatroom
+│   │   │   ├── LoadingSkeleton.jsx  # Skeleton loading states
+│   │   │   ├── MobileNav.jsx        # Mobile bottom navigation
+│   │   │   ├── ProfileSetup.jsx     # Role selection & onboarding
+│   │   │   ├── ProjectCard.jsx      # Project showcase card
 │   │   │   └── ProtectedRoute.jsx   # Auth & role-based route guard
 │   │   ├── contexts/
-│   │   │   └── AuthContext.jsx      # Firebase Auth session state provider
+│   │   │   └── AuthContext.jsx      # Firebase Auth session provider
 │   │   ├── firebase/
-│   │   │   └── config.js            # Firebase client SDK initialization
+│   │   │   └── config.js            # Firebase client SDK init
 │   │   ├── hooks/
-│   │   │   └── useGeminiChat.js     # Gemini chat hook with memory synchronization
+│   │   │   └── useGeminiChat.js     # Gemini chat hook with memory sync
 │   │   ├── pages/
-│   │   │   ├── Landing.jsx          # Dark glassmorphic landing page
-│   │   │   ├── Login.jsx            # Sign-in + 4 interactive demo accounts
-│   │   │   ├── Signup.jsx           # Account creation with role selection
-│   │   │   ├── Dashboard.jsx        # Role-based dashboard router
-│   │   │   ├── CreateProject.jsx    # Project publishing wizard
-│   │   │   ├── ProjectDetails.jsx   # Pod workspace & equity view
-│   │   │   ├── Teams.jsx            # Team discovery & squad matching
-│   │   │   ├── Investors.jsx        # Investor directory & pitches
+│   │   │   ├── Landing.jsx
+│   │   │   ├── Login.jsx
+│   │   │   ├── Signup.jsx
+│   │   │   ├── Dashboard.jsx
+│   │   │   ├── CreateProject.jsx
+│   │   │   ├── ProjectDetails.jsx
+│   │   │   ├── Teams.jsx
+│   │   │   ├── Investors.jsx
 │   │   │   └── dashboards/
-│   │   │       ├── FounderDashboard.jsx     # Founder command center
-│   │   │       ├── InvestorDashboard.jsx    # Investor portfolio center
-│   │   │       ├── FreelancerDashboard.jsx  # Freelancer jobs & hours log
-│   │   │       └── BuyerDashboard.jsx       # MVP marketplace checkout
+│   │   │       ├── FounderDashboard.jsx
+│   │   │       ├── InvestorDashboard.jsx
+│   │   │       ├── FreelancerDashboard.jsx
+│   │   │       └── BuyerDashboard.jsx
 │   │   ├── services/
-│   │   │   ├── geminiService.js     # Gemini API calls & system prompts
-│   │   │   └── memoryService.js     # Firestore chat history persistence
-│   │   ├── App.jsx                  # Route definitions
-│   │   └── main.jsx                 # React root render
-│   ├── netlify.toml                 # Netlify deployment configuration
-│   └── vite.config.js               # Vite bundler & plugin config
-├── render.yaml                      # Render Blueprint specification
-└── README.md                        # Project documentation
+│   │   │   ├── geminiService.js     # Gemini API calls & prompts
+│   │   │   └── memoryService.js     # Firestore chat persistence
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── netlify.toml
+│   └── vite.config.js
+├── render.yaml
+└── README.md
 ```
 
----
+## Getting Started
 
-## 🚀 Quick Start Guide
+### Prerequisites
 
-### 📋 Prerequisites
-- **Node.js**: `v18+` recommended
-- **npm** or **yarn** / **pnpm**
-- **Firebase Project**: Firestore & Authentication enabled
-- **Gemini API Key**: from [Google AI Studio](https://aistudio.google.com/)
+- Node.js v18 or later
+- npm, yarn, or pnpm
+- A Firebase project with Firestore and Authentication enabled
+- A Gemini API key from [Google AI Studio](https://aistudio.google.com/)
 
----
-
-### ⚡ Setup Instructions
+### Installation
 
 ```bash
-# 1️⃣ Clone the repository
 git clone https://github.com/omm-prog/FoundryHub.git
 cd FoundryHub/startup
-
-# 2️⃣ Install dependencies
 npm install
+```
 
-# 3️⃣ Configure Environment Variables
-# Copy the example environment file:
+### Environment Variables
+
+Copy the example file and fill in your credentials:
+
+```bash
 cp .env.example .env
 ```
 
-Add your credentials inside `startup/.env`:
+`startup/.env`:
 
 ```env
 VITE_FIREBASE_API_KEY=your_firebase_api_key
@@ -247,74 +156,101 @@ VITE_FIREBASE_APP_ID=your_app_id
 VITE_GEMINI_API_KEY=your_gemini_api_key
 ```
 
+> **Never commit `.env` files.** Ensure `.env` is listed in `.gitignore` and that keys are rotated if accidentally exposed.
+
+### Running Locally
+
 ```bash
-# 4️⃣ Launch the development server 🚀
 npm run dev
 ```
 
-The application will be live at `http://localhost:5173`.
+The app will be available at `http://localhost:5173`.
 
----
+## Seeding Demo Data
 
-### 🧪 Seeding Demo Users & Projects (Optional)
+To populate four demo accounts with shared projects, investments, and chat history:
 
-To populate the 4 demo users with shared projects, investments, and chats:
+1. Download a Firebase service account key and save it as `serviceAccountKey.json` in `startup/`.
+2. Run:
 
-1. Download your Firebase service account key as `serviceAccountKey.json` into the `startup/` directory.
-2. Run the seed script:
 ```bash
 node seed-demo-users.cjs
 ```
-*(Note: `serviceAccountKey.json` and seed scripts are gitignored to ensure security).*
 
----
+`serviceAccountKey.json` and seed scripts are excluded from version control via `.gitignore` — never commit service account credentials.
 
-## 🌐 Deploying to Production
-
-### 🅰️ Deploy on Netlify (Recommended)
-
-1. Connect your GitHub repository to **[Netlify](https://app.netlify.com/)**.
-2. Set the build settings:
-   - **Base directory**: `startup`
-   - **Build command**: `npm run build`
-   - **Publish directory**: `startup/dist`
-3. Under **Site configuration > Environment variables**, add:
-   - `VITE_FIREBASE_API_KEY`
-   - `VITE_FIREBASE_AUTH_DOMAIN`
-   - `VITE_FIREBASE_PROJECT_ID`
-   - `VITE_FIREBASE_STORAGE_BUCKET`
-   - `VITE_FIREBASE_MESSAGING_SENDER_ID`
-   - `VITE_FIREBASE_APP_ID`
-   - `VITE_GEMINI_API_KEY`
-4. Click **Deploy Site**. Netlify handles client-side SPA routing automatically via `public/_redirects` and `netlify.toml`.
-
-### 🅱️ Deploy on Render
-
-Use the included [`render.yaml`](file:///c:/Documents/PROJECT/START_UP/FounderHub/FoundryHub/render.yaml) blueprint to deploy a static site service directly with one click.
-
----
-
-## 📱 Available Scripts
+## Available Scripts
 
 | Command | Description |
 |---|---|
-| `npm run dev` | 🔥 Starts the Vite local dev server with HMR |
-| `npm run build` | 📦 Builds optimized production bundle into `dist/` |
-| `npm run preview` | 👀 Previews the production build locally |
-| `npm run lint` | 🔍 Runs ESLint checks across JSX and JS files |
+| `npm run dev` | Start the Vite dev server with HMR |
+| `npm run build` | Build an optimized production bundle to `dist/` |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run ESLint across the codebase |
 
----
+## Testing
 
-## 📄 License
+> _Add your test runner and instructions here once a test suite is in place, e.g._
 
-This project is licensed under the **MIT License** — feel free to use, modify, and distribute.
+```bash
+npm run test
+```
 
----
+Consider adding unit tests (Vitest/Jest), component tests (React Testing Library), and end-to-end tests (Playwright/Cypress) as the codebase matures. Contributions that add test coverage are especially welcome.
 
-<div align="center">
+## Deployment
 
-**Built with 💖 by the FoundryHub Team**
+### Netlify (recommended)
 
-*Empowering founders, creators, and investors to build the future together.* ✨
+1. Connect the GitHub repository at [app.netlify.com](https://app.netlify.com/).
+2. Configure build settings:
+   - **Base directory**: `startup`
+   - **Build command**: `npm run build`
+   - **Publish directory**: `startup/dist`
+3. Add the environment variables listed above under **Site configuration → Environment variables**.
+4. Deploy. SPA routing is handled automatically via `public/_redirects` and `netlify.toml`.
 
-</div>
+### Render
+
+Use the included [`render.yaml`](render.yaml) blueprint to deploy as a static site with one click.
+
+## Security
+
+If you discover a security vulnerability, please **do not open a public issue**. Instead, report it privately by emailing the maintainers (see [Contact](#contact)) so it can be addressed before public disclosure.
+
+General guidelines:
+- Firebase security rules should enforce role-based access at the database level, not just in the client.
+- Rotate API keys immediately if they are ever exposed in a commit, log, or public URL.
+- Review `firestore.rules` and `storage.rules` (if present) before deploying to production.
+
+## Roadmap
+
+- [ ] Automated test suite (unit, integration, e2e)
+- [ ] CI/CD pipeline (GitHub Actions) for lint/test/build on PRs
+- [ ] Formal Firestore security rules documentation
+- [ ] Payment integration for marketplace transactions
+- [ ] Notification system (email/in-app)
+
+See [open issues](https://github.com/omm-prog/FoundryHub/issues) for a full list of proposed features and known issues.
+
+## Contributing
+
+Contributions make the open-source community a great place to learn and build. Any contributions are **greatly appreciated**.
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+Please open an issue first for major changes to discuss what you'd like to change. See `CONTRIBUTING.md` for detailed guidelines (add one if it doesn't exist yet).
+
+## License
+
+Distributed under the MIT License. See [`LICENSE`](LICENSE) for more information.
+
+## Contact
+
+Maintained by the FoundryHub team. For questions, bug reports, or security disclosures, please open an [issue](https://github.com/omm-prog/FoundryHub/issues) or reach out directly.
+
+Project Link: [https://github.com/omm-prog/FoundryHub](https://github.com/omm-prog/FoundryHub)
