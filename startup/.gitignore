@@ -31,10 +31,6 @@ dist-ssr
 # Flowbite dynamic configurations
 .flowbite-react/
 
-# Package management files
-package.json
-package-lock.json
-README.md
 
 # Firebase Admin — NEVER commit this key
 serviceAccountKey.json
